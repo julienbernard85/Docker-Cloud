@@ -1,3 +1,4 @@
+import json
 import signal
 import sys
 
@@ -6,20 +7,31 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 
 
-@app.route("/games")
-def games():
-    return jsonify([
-        {
-            "id": 1,
-            "name": "Minecraft"
-        },
-        {
-            "id": 2,
-            "name": "Zelda"
-        }
-    ])
+def load_games():
+    with open("data/games.json", "r", encoding="utf-8") as file:
+        return json.load(file)
 
-# Arrêt gracieux du serveur Flask sinon il y a un code d'arrêt 137
+
+@app.route("/games")
+def get_games():
+    return jsonify(load_games())
+
+
+@app.route("/games/<int:game_id>")
+def get_game(game_id):
+    games = load_games()
+
+    game = next(
+        (game for game in games if game["id"] == game_id),
+        None
+    )
+
+    if game is None:
+        return jsonify({"error": "Jeu introuvable"}), 404
+
+    return jsonify(game)
+
+
 def shutdown_handler(signum, frame):
     print("Arrêt du serveur back...")
     sys.exit(0)

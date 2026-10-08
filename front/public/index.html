@@ -1,11 +1,51 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
-    <title>Jeux vidéo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Catalogue de jeux vidéo</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <h1>Ma vitrine de jeux vidéo</h1>
-    <p>Le front fonctionne !</p>
+
+    <header class="hero-header">
+        <div class="hero-overlay">
+            <p class="hero-label">BIBLIOTHÈQUE</p>
+
+            <h1>Catalogue de jeux vidéo</h1>
+
+            <p class="hero-subtitle">
+                Parcourez votre sélection de jeux
+            </p>
+        </div>
+    </header>
+
+    <main>
+        <section class="library-section">
+
+            <div class="section-header">
+                <h2>Ma bibliothèque</h2>
+            </div>
+
+            <div id="games" class="games"></div>
+
+        </section>
+    </main>
+
+    <script src="index.js"></script>
+
 </body>
+
 </html>

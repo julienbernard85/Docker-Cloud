@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "name": "Final Fantasy VII Remake Intergrade",
+    "description": "Vivez l'histoire passionnante de Cloud Strife à Midgar dans cette renaissance de l'emblématique FINAL FANTASY VII à travers des graphismes de pointe, des combats épiques mêlant action et commandes classiques, et un épisode bonus consacré à Yuffie Kisaragi.",
+    "image": "FFVII.png"
+  },
+  {
+    "id": 2,
+    "name": "Rubinite",
+    "description": "Rubinite is an extremely challenging boss rush action game. in a dark fairy tale world, use Ruby's crimson eyes to expose the weak points of the Bloodstained monsters, then strike and shatter them. Carve a road home through the ruined Scarlet Kingdom and face the Witch who took it all.",
+    "image": "Rubinite.jpg"
+  },
+  {
+    "id": 3,
+    "name": "Monster Hunter Wilds",
+    "description": "Arpentez des environnements qui se transforment radicalement d'un moment à l'autre sous l'effet de la force indomptable d'une nature sans cesse déchaînée. Plongez dans une histoire de monstres et d'humains luttant pour vivre en harmonie dans un monde de dualités.",
+    "image": "MHWilds.png"
+  },
+  {
+    "id": 4,
+    "name": "Kingdom Hearts Final Mix",
+    "description": "KINGDOM HEARTS -HD 1.5+2.5 ReMIX- est une collection remastérisée en HD réunissant six expériences KINGDOM HEARTS inoubliables. Brandissez votre Keyblade pour sauver les mondes Disney des ténèbres.",
+    "image": "Kingdom_hearts.png"
+  }
+]
