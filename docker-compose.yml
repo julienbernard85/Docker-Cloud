@@ -1,0 +1,37 @@
+services:
+  front:
+    build:
+      context: ./front
+      dockerfile: dockerfile
+    container_name: games-front
+    expose:
+      - "3000"
+    networks:
+      - games-network
+
+  back:
+    build:
+      context: ./back
+      dockerfile: dockerfile
+    container_name: games-back
+    expose:
+      - "5000"
+    networks:
+      - games-network
+
+  proxy:
+    build:
+      context: ./server
+      dockerfile: dockerfile
+    container_name: games-server-proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - front
+      - back
+    networks:
+      - games-network
+
+networks:
+  games-network:
+    driver: bridge
