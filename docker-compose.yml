@@ -1,37 +1,98 @@
 services:
+
+  # -------------------------
+  # Frontend
+  # -------------------------
   front:
+    # L'image est construite à partir de notre propre Dockerfile.
     build:
       context: ./front
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
+
     container_name: games-front
+
+    # Variable utilisée pour indiquer que l'application fonctionne dans un environnement de production.
+    environment:
+      NODE_ENV: production
+
+    # Le port 3000 est disponible uniquement à l'intérieur du réseau Docker.
+    # Il n'est pas directement accessible depuis la machine hôte.
     expose:
       - "3000"
+
+    # Limitation des ressources attribuées au conteneur.
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
+    # Le frontend rejoint le réseau commun du projet.
     networks:
       - games-network
 
+
+  # -------------------------
+  # Backend
+  # -------------------------
   back:
     build:
       context: ./back
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
+
     container_name: games-back
+
+    environment:
+      FLASK_ENV: production
+
+    # Le port 5000 sert uniquement aux communications
+    # entre le proxy et le backend.
     expose:
       - "5000"
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.50"
+          memory: 256M
+
     networks:
       - games-network
 
+
+  # -------------------------
+  # Reverse proxy
+  # -------------------------
   proxy:
     build:
       context: ./server
-      dockerfile: dockerfile
+      dockerfile: Dockerfile
+
     container_name: games-server-proxy
+
+    # Le proxy est le seul service accessible depuis l'extérieur.
+    # Le port 8080 de la machine redirige vers le port 80 de Nginx.
     ports:
       - "8080:80"
+
+    # Le proxy dépend du frontend et du backend.
+    # Docker les démarre avant le proxy.
     depends_on:
       - front
       - back
+
+    deploy:
+      resources:
+        limits:
+          cpus: "0.25"
+          memory: 128M
+
     networks:
       - games-network
 
+
+# Réseau privé permettant aux trois conteneurs de communiquer entre eux en utilisant leur nom de service
+# comme adresse DNS : front, back et proxy.
 networks:
   games-network:
     driver: bridge

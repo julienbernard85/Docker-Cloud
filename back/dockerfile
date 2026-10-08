@@ -1,13 +1,23 @@
+# Image Python légère.
+# Python est utilisé pour créer une API simple avec Flask.
 FROM python:3.13-slim
 
+# Définit le dossier de travail du backend.
 WORKDIR /app
 
+# Copie d'abord la liste des dépendances Python.
 COPY requirements.txt .
 
+# Installation des dépendances.
+# --no-cache-dir évite de conserver le cache pip et permet de réduire la taille finale de l'image.
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copie ensuite le code du backend et les données.
 COPY . .
 
+# Flask écoute sur le port 5000 dans le conteneur.
+# Ce port est uniquement utilisé entre les conteneurs Docker.
 EXPOSE 5000
 
+# Lance l'API Flask.
 CMD ["python", "app.py"]

@@ -1,13 +1,23 @@
+# Image légère contenant Node.js.
+# Node permet de lancer un serveur Express chargé de servir les fichiers statiques du frontend.
 FROM node:22-alpine
 
+# Définit le dossier de travail dans le conteneur.
 WORKDIR /app
 
+# Copie d'abord les fichiers décrivant les dépendances.
+# Cela permet à Docker de réutiliser le cache si les dépendances n'ont pas changé.
 COPY package*.json ./
 
+# Installation des dépendances nécessaires au frontend, notamment Express.
 RUN npm install
 
+# Copie ensuite le reste du projet frontend.
 COPY . .
 
+# Le serveur Node écoute sur le port 3000 à l'intérieur du conteneur.
+# Ce port n'est pas directement exposé à l'utilisateur : les requêtes passeront par le proxy Nginx.
 EXPOSE 3000
 
-CMD ["npm", "start"]
+# Commande lancée au démarrage du conteneur.
+CMD ["node", "server.js"]

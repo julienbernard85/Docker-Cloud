@@ -1,5 +1,10 @@
+# Nginx est utilisé comme reverse proxy.
+# Il reçoit les requêtes du navigateur puis les redirige soit vers le frontend, soit vers le backend.
 FROM nginx:alpine
 
+# Remplacement de la configuration Nginx par notre propre configuration.
+# Cela permet de définir les règles de redirection vers front et back.
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
+# Nginx écoute sur le port HTTP standard 80 dans le conteneur.
 EXPOSE 80
