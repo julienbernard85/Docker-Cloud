@@ -24,8 +24,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: 256M
+          cpus: "0.25"
+          memory: 128M
 
     # Le frontend rejoint le réseau commun du projet.
     networks:
@@ -53,8 +53,8 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.50"
-          memory: 256M
+          cpus: "0.25"
+          memory: 128M
 
     networks:
       - games-network
