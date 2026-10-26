@@ -5,6 +5,10 @@ from flask import Flask, jsonify
 app = Flask(__name__)
 port = int(os.getenv("BACK_PORT", 5000))
 
+@app.route("/health")
+def health():
+    return {"status": "ok"}, 200
+
 def load_games():
     with open("data/games.json", "r", encoding="utf-8") as file:
         return json.load(file)
