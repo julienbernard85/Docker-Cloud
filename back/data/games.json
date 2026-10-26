@@ -4,7 +4,7 @@
     "name": "Final Fantasy VII Remake Intergrade",
     "description": "Vivez l'histoire passionnante de Cloud Strife à Midgar dans cette renaissance de l'emblématique FINAL FANTASY VII à travers des graphismes de pointe, des combats épiques mêlant action et commandes classiques, et un épisode bonus consacré à Yuffie Kisaragi.",
     "image": "FFVII.png",
-    "gif": "",
+    "gif": "FFVII_gif.gif",
     "platforms": [
       "PC",
       "PlayStation 5",
@@ -32,7 +32,7 @@
     "name": "Rubinite",
     "description": "Rubinite is an extremely challenging boss rush action game. In a dark fairy tale world, use Ruby's crimson eyes to expose the weak points of the Bloodstained monsters, then strike and shatter them. Carve a road home through the ruined Scarlet Kingdom and face the Witch who took it all.",
     "image": "Rubinite.jpg",
-    "gif": "",
+    "gif": "rubinite_gif.gif",
     "platforms": [
       "PC"
     ],
@@ -63,7 +63,7 @@
     "name": "Monster Hunter Wilds",
     "description": "Arpentez des environnements qui se transforment radicalement d'un moment à l'autre sous l'effet de la force indomptable d'une nature sans cesse déchaînée. Plongez dans une histoire de monstres et d'humains luttant pour vivre en harmonie dans un monde de dualités.",
     "image": "MHWilds.png",
-    "gif": "",
+    "gif": "MHWilds_gif.gif",
     "platforms": [
       "PC",
       "PlayStation 5",
@@ -90,7 +90,7 @@
     "name": "Kingdom Hearts Final Mix",
     "description": "KINGDOM HEARTS -HD 1.5+2.5 ReMIX- est une collection remastérisée en HD réunissant six expériences KINGDOM HEARTS inoubliables. Brandissez votre Keyblade pour sauver les mondes Disney des ténèbres.",
     "image": "Kingdom_hearts.png",
-    "gif": "",
+    "gif": "KH_gif.gif",
     "platforms": [
       "PC",
       "PlayStation 4",
@@ -241,5 +241,142 @@
         "url": "https://store.steampowered.com/app/4225980/Trails_in_the_Sky_2nd_Chapter/"
       }
     ]
-  }
+  },
+  {
+    "id": 9,
+    "name": "Hollow Knight",
+    "description": "Explorez Hallownest, un vaste royaume souterrain en ruines peuplé d'insectes et de créatures étranges. Affrontez des ennemis redoutables, découvrez des secrets enfouis et développez de nouvelles capacités dans ce metroidvania dessiné à la main.",
+    "image": "Hollow_Knight.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Nintendo Switch",
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 90,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/hollow-knight/"
+      },
+      {
+        "name": "IGN",
+        "score": 9.4,
+        "maxScore": 10,
+        "url": "https://www.metacritic.com/game/hollow-knight/critic-reviews/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/367520/Hollow_Knight/"
+      }
+    ]
+  },
+  {
+    "id": 10,
+    "name": "Onimusha: Way of the Sword",
+    "description": "Onimusha: Way of the Sword marque le retour de la série dans un Japon féodal sombre et fantastique. Incarnez Miyamoto Musashi et affrontez des créatures surnaturelles dans des combats au sabre techniques, tout en utilisant les pouvoirs du gantelet Oni pour absorber les âmes de vos ennemis.",
+    "image": "Onimusha.jpg",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 83,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/2638890/Onimusha_Way_of_the_Sword/"
+      }
+    ]
+  },
+  {
+    "id": 11,
+    "name": "Street Fighter 6",
+    "description": "Street Fighter 6 propose une nouvelle génération de combats avec plusieurs modes complémentaires : Fighting Ground, World Tour et Battle Hub. Affrontez d'autres joueurs, maîtrisez de nombreux combattants et développez votre propre style dans l'un des jeux de combat les plus populaires de Capcom.",
+    "image": "SF6.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox Series X|S",
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 92,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/street-fighter-6/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/1364780/Street_Fighter_6/"
+      }
+    ]
+  },
+  {
+  "id": 12,
+  "name": "Helldivers 2",
+  "description": "Rejoignez les Helldivers et combattez pour la liberté à travers une galaxie hostile dans ce jeu de tir coopératif à la troisième personne. Formez une escouade pouvant accueillir jusqu'à quatre joueurs, utilisez un arsenal dévastateur et participez à une guerre galactique en constante évolution pour défendre la Super-Terre.",
+  "image": "helldivers_II.jpg",
+  "gif": "",
+  "platforms": [
+    "PC",
+    "PlayStation 5",
+    "Xbox Series X|S"
+  ],
+  "reviews": [
+    {
+      "name": "Metacritic",
+      "score": 82,
+      "maxScore": 100,
+      "url": "https://www.metacritic.com/game/helldivers-2/"
+    },
+    {
+      "name": "IGN",
+      "score": 9,
+      "maxScore": 10,
+      "url": "https://www.ign.com/articles/helldivers-2-review"
+    },
+    {
+      "name": "GameSpot",
+      "score": 9,
+      "maxScore": 10,
+      "url": "https://www.gamespot.com/reviews/helldivers-2-review-starship-bloopers/1900-6418188/"
+    }
+  ],
+  "stores": [
+    {
+      "name": "Steam",
+      "type": "steam",
+      "url": "https://store.steampowered.com/app/553850/HELLDIVERS_2/"
+    },
+    {
+      "name": "PlayStation",
+      "type": "playstation",
+      "url": "https://www.playstation.com/fr-fr/games/helldivers-2/"
+    }
+  ]
+}
 ]
