@@ -6,13 +6,13 @@ Ce projet a pour objectif de mettre en place une application web conteneurisée 
 
 L'application prend la forme d'une vitrine de jeux vidéo permettant d'afficher plusieurs jeux sous forme de cartes visuelles.
 
-Chaque jeu pourra contenir :
+Chaque jeu peut contenir :
 
 - une image de présentation ;
 - un GIF animé au survol si disponible ;
-- le nom du jeu ;
+- le nom du jeu.
 
-En cliquant sur l'image de présentation, l'utilisateur est emmené sur une page détaillé du jeu avec : 
+En cliquant sur l'image de présentation, l'utilisateur est redirigé vers une page détaillée du jeu contenant :
 
 - une description détaillée ;
 - des notes provenant de sites spécialisés ;
@@ -27,7 +27,9 @@ L'objectif principal du projet n'est pas uniquement de développer l'application
 - utilisation d'un reverse proxy ;
 - orchestration avec Docker Compose ;
 - gestion des ports et du réseau Docker ;
-- limitation des ressources CPU et mémoire.
+- utilisation de variables d'environnement ;
+- limitation des ressources CPU et mémoire ;
+- gestion du cycle de vie des conteneurs.
 
 ---
 
@@ -35,7 +37,7 @@ L'objectif principal du projet n'est pas uniquement de développer l'application
 
 L'application repose sur trois services principaux :
 
-- **Frontend Node.js / Express** : affiche l'interface, les images et les informations des jeux ;
+- **Frontend Node.js / Express** : affiche l'interface, les images, les GIFs et les informations des jeux ;
 - **Backend Python / Flask** : fournit les données des jeux via une API ;
 - **Nginx** : sert de reverse proxy entre l'utilisateur, le frontend et le backend.
 
@@ -47,6 +49,8 @@ Nginx redirige ensuite les requêtes :
 /       → Frontend
 /api/   → Backend
 ```
+
+Le frontend et le backend ne sont donc pas directement exposés à l'utilisateur.
 
 ---
 
@@ -80,7 +84,16 @@ Nginx redirige ensuite les requêtes :
         Images / GIFs              Données des jeux
 ```
 
-Les trois conteneurs communiquent à travers un réseau Docker privé.
+Les trois conteneurs communiquent à travers un réseau Docker privé de type `bridge`.
+
+Docker permet aux services de communiquer grâce à leur nom :
+
+```text
+front:3000
+back:5000
+```
+
+Il n'est donc pas nécessaire de définir manuellement les adresses IP des conteneurs.
 
 ---
 
@@ -94,9 +107,23 @@ Son rôle est de servir :
 - les fichiers CSS ;
 - les fichiers JavaScript ;
 - les images ;
-- les futurs GIFs animés.
+- les GIFs animés.
 
-Le frontend récupère les informations des jeux depuis le backend via l'API.
+Express est utilisé comme serveur web léger pour rendre les fichiers présents dans le dossier `public`.
+
+Les dépendances du frontend sont déclarées dans :
+
+```text
+front/package.json
+```
+
+puis installées lors de la construction de l'image Docker avec :
+
+```bash
+npm install
+```
+
+Le frontend récupère ensuite les informations des jeux depuis le backend à travers l'API.
 
 ---
 
@@ -104,13 +131,30 @@ Le frontend récupère les informations des jeux depuis le backend via l'API.
 
 Le backend utilise **Python avec Flask**.
 
-Il fournit les données des jeux au frontend sous forme de JSON.
+Flask permet de créer une API simple chargée de transmettre les données des jeux au frontend.
 
-Les informations sont actuellement stockées dans :
+Les dépendances Python sont déclarées dans :
+
+```text
+back/requirements.txt
+```
+
+et installées lors de la construction de l'image.
+
+Les informations des jeux sont stockées dans :
 
 ```text
 back/data/games.json
 ```
+
+Ce fichier contient notamment :
+
+- le nom du jeu ;
+- sa description ;
+- le nom de son image et éventuellement de son GIF ;
+- les plateformes disponibles ;
+- les notes de sites spécialisés ;
+- les liens vers les différentes boutiques.
 
 Le backend propose notamment les routes :
 
@@ -119,29 +163,154 @@ GET /games
 GET /games/<id>
 ```
 
+La première retourne la liste des jeux tandis que la seconde retourne les informations d'un jeu précis.
+
 ---
 
 ## Reverse proxy
 
 Le troisième conteneur utilise **Nginx**.
 
-Il sert de point d'entrée unique pour l'application.
+Il constitue le point d'entrée unique de l'application.
 
-Les requêtes normales sont envoyées vers le frontend :
+Les requêtes destinées au site sont envoyées vers le frontend :
 
 ```text
-/ 
+/
+↓
 front:3000
 ```
 
 Les requêtes destinées à l'API sont envoyées vers le backend :
 
 ```text
-/api/  
+/api/
+↓
 back:5000
 ```
 
-Le frontend et le backend ne sont donc pas directement exposés à l'utilisateur.
+La configuration de cette redirection est définie dans :
+
+```text
+server/nginx.conf
+```
+
+Seul Nginx publie un port vers la machine hôte.
+
+---
+
+## Variables d'environnement
+
+La configuration générale est regroupée dans le fichier `.env`.
+
+```env
+APP_PORT=8080
+
+FRONT_PORT=3000
+BACK_PORT=5000
+PROXY_PORT=80
+
+NODE_ENV=production
+FLASK_ENV=production
+```
+
+Ces variables permettent notamment de définir :
+
+- le port d'accès à l'application ;
+- le port interne du frontend ;
+- le port interne du backend ;
+- le port du proxy ;
+- l'environnement d'exécution de Node.js et Flask.
+
+Docker Compose récupère ces valeurs et les transmet aux conteneurs concernés.
+
+Cela permet de modifier certains paramètres de l'application sans avoir à modifier directement les Dockerfiles ou le code source.
+
+---
+
+## Orchestration avec Docker Compose
+
+Le fichier `docker-compose.yml` permet de construire et de démarrer les trois services ensemble.
+
+Il gère notamment :
+
+- la construction des images Docker ;
+- les variables d'environnement ;
+- les ports ;
+- le réseau Docker ;
+- les dépendances entre services ;
+- les limites de ressources.
+
+Le proxy dépend du frontend et du backend :
+
+```yaml
+depends_on:
+  - front
+  - back
+```
+
+Cela permet de démarrer le frontend et le backend avant le reverse proxy.
+
+---
+
+## Gestion des ressources
+
+Chaque conteneur possède actuellement une limite de :
+
+```yaml
+cpus: "0.25"
+memory: 128M
+```
+
+Ces valeurs ont été choisies après observation de la consommation des différents services avec `docker stats`.
+
+Les résultats et comparaisons des différentes allocations testées sont détaillés dans :
+
+```text
+benchmarks.md
+```
+
+---
+
+## Gestion de l'arrêt des conteneurs
+
+Le frontend Node.js et le backend Python gèrent les signaux :
+
+```text
+SIGTERM
+SIGINT
+```
+
+Lorsqu'un conteneur est arrêté, l'application intercepte le signal et ferme proprement son serveur.
+
+Cela permet notamment d'éviter qu'un processus soit interrompu brutalement et permet aux conteneurs de terminer avec un code de sortie `0`.
+
+---
+
+## Stockage des données
+
+Les données des jeux sont actuellement stockées dans :
+
+```text
+back/data/games.json
+```
+
+Les ressources visuelles sont stockées dans :
+
+```text
+front/public/images/
+```
+
+Aucun volume Docker n'est utilisé pour le moment.
+
+Ce choix est volontaire : les données et les images sont actuellement statiques et font partie directement de l'application lors de la construction des images Docker.
+
+Un volume deviendrait utile si l'application permettait plus tard de modifier les données pendant son fonctionnement, par exemple pour :
+
+- ajouter un nouveau jeu ;
+- modifier une description ;
+- téléverser une nouvelle image ;
+- supprimer un jeu.
 
 ---
 
@@ -183,14 +352,14 @@ Docker/
 
 ## Technologies utilisées
 
-| Partie | Technologie |
-|---|---|
-| Frontend | Node.js / Express |
-| Backend | Python / Flask |
-| Proxy | Nginx |
-| Données | JSON |
-| Conteneurisation | Docker |
-| Orchestration | Docker Compose |
+| Partie | Technologie | Rôle |
+|---|---|---|
+| Frontend | Node.js / Express | Interface et ressources statiques |
+| Backend | Python / Flask | API et gestion des données |
+| Proxy | Nginx | Reverse proxy |
+| Données | JSON | Informations des jeux |
+| Conteneurisation | Docker | Construction et exécution des conteneurs |
+| Orchestration | Docker Compose | Gestion des différents services |
 
 ---
 
