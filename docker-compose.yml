@@ -9,19 +9,36 @@ services:
       context: ./front
       dockerfile: Dockerfile
 
-    container_name: games-front
+    # Pas de container_name ici.
+    # Cela permet à Docker Compose de créer plusieurs instances
+    # du frontend lors d'un scaling.
+    #
+    # Exemple :
+    # docker compose up --scale front=3
+    #
+    # Docker créera alors automatiquement des conteneurs du type :
+    # docker-front-1
+    # docker-front-2
+    # docker-front-3
 
-    # Variable utilisée pour indiquer que l'application fonctionne dans un environnement de production.
+    # Variables d'environnement récupérées depuis le fichier .env.
     environment:
       NODE_ENV: ${NODE_ENV}
       FRONT_PORT: ${FRONT_PORT}
 
-    # Le port 3000 est disponible uniquement à l'intérieur du réseau Docker.
-    # Il n'est pas directement accessible depuis la machine hôte.
+    # Le port du frontend est uniquement disponible
+    # à l'intérieur du réseau Docker.
+    #
+    # Aucune publication vers la machine hôte n'est nécessaire,
+    # car l'utilisateur passe uniquement par Nginx.
     expose:
       - "${FRONT_PORT}"
 
-    # Limitation des ressources attribuées au conteneur.
+    # Limitation des ressources attribuées à CHAQUE instance
+    # du frontend.
+    #
+    # En cas de scaling à 3 instances, chaque conteneur
+    # possède donc sa propre limite de 0.25 CPU et 128 Mo.
     deploy:
       resources:
         limits:
@@ -37,27 +54,38 @@ services:
   # Backend
   # -------------------------
   back:
+    # Construction de l'image Python / Flask personnalisée.
     build:
       context: ./back
       dockerfile: Dockerfile
 
-    container_name: games-back
+    # Pas de container_name ici non plus.
+    # Cela permet de lancer plusieurs instances du backend.
+    #
+    # Exemple :
+    # docker compose up --scale back=3
+    #
+    # Docker Compose générera automatiquement
+    # un nom différent pour chaque replica.
 
+    # Variables d'environnement récupérées depuis le fichier .env.
     environment:
       FLASK_ENV: ${FLASK_ENV}
       BACK_PORT: ${BACK_PORT}
 
-    # Le port 5000 sert uniquement aux communications
-    # entre le proxy et le backend.
+    # Le port Flask reste accessible uniquement
+    # à l'intérieur du réseau Docker.
     expose:
       - "${BACK_PORT}"
 
+    # Limitation appliquée à chaque instance du backend.
     deploy:
       resources:
         limits:
           cpus: "0.25"
           memory: 128M
 
+    # Le backend rejoint le réseau commun.
     networks:
       - games-network
 
@@ -66,34 +94,63 @@ services:
   # Reverse proxy
   # -------------------------
   proxy:
+    # Construction de notre image Nginx personnalisée.
     build:
       context: ./server
       dockerfile: Dockerfile
 
+    # Le proxy n'est pas scalé pour le moment.
+    # On peut donc conserver un nom fixe.
     container_name: games-server-proxy
 
     # Le proxy est le seul service accessible depuis l'extérieur.
-    # Le port 8080 de la machine redirige vers le port 80 de Nginx.
+    #
+    # APP_PORT correspond au port de la machine hôte.
+    # PROXY_PORT correspond au port interne de Nginx.
+    #
+    # Exemple :
+    # 8080:80
     ports:
       - "${APP_PORT}:${PROXY_PORT}"
 
     # Le proxy dépend du frontend et du backend.
-    # Docker les démarre avant le proxy.
+    # Docker démarre donc ces services avant Nginx.
+    #
+    # Cette dépendance reste compatible avec le scaling :
+    # les différents replicas appartiennent toujours
+    # aux services "front" et "back".
     depends_on:
       - front
       - back
 
+    # Nginx est léger et conserve les mêmes limites.
     deploy:
       resources:
         limits:
           cpus: "0.25"
           memory: 128M
 
+    # Le proxy rejoint le même réseau Docker afin
+    # de pouvoir contacter les services "front" et "back".
     networks:
       - games-network
 
-# Réseau privé permettant aux trois conteneurs de communiquer entre eux en utilisant leur nom de service
-# comme adresse DNS : front, back et proxy.
+
+# -------------------------
+# Réseau Docker
+# -------------------------
+
+# Réseau privé permettant aux différents conteneurs
+# de communiquer entre eux.
+#
+# Même avec plusieurs instances, Docker conserve
+# le nom DNS du service :
+#
+# front
+# back
+#
+# Les replicas restent donc accessibles via
+# le nom logique de leur service.
 networks:
   games-network:
     driver: bridge

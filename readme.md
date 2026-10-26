@@ -314,6 +314,47 @@ Un volume deviendrait utile si l'application permettait plus tard de modifier le
 
 ---
 
+## Scaling des services
+
+Docker Compose permet également de lancer plusieurs instances d'un même service grâce au **scaling horizontal**.
+
+Au lieu d'avoir une seule instance du frontend et du backend :
+
+```text
+1 frontend
+1 backend
+```
+
+il est possible d'en lancer plusieurs :
+
+```text
+3 frontends
+3 backends
+```
+
+Le scaling permet notamment de :
+
+- répartir la charge entre plusieurs conteneurs ;
+- supporter davantage de requêtes simultanées ;
+- éviter qu'une seule instance devienne un point de saturation ;
+- améliorer la disponibilité globale d'un service.
+
+Dans ce projet, le frontend et le backend peuvent être répliqués avec la commande :
+
+```bash
+docker compose up --build --scale front=3 --scale back=3
+```
+
+Docker Compose crée alors plusieurs conteneurs à partir de la même image et avec la même configuration.
+
+Les services `front` et `back` ne possèdent pas de `container_name` fixe afin de permettre la création de plusieurs instances.
+
+Le reverse proxy Nginx reste actuellement sur une seule instance et sert de point d'entrée vers les différents services.
+
+Le scaling permet ainsi de faire évoluer l'architecture sans modifier le code de l'application.
+
+---
+
 ## Structure du projet
 
 ```text
