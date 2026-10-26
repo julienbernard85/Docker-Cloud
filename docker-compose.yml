@@ -13,12 +13,13 @@ services:
 
     # Variable utilisée pour indiquer que l'application fonctionne dans un environnement de production.
     environment:
-      NODE_ENV: production
+      NODE_ENV: ${NODE_ENV}
+      FRONT_PORT: ${FRONT_PORT}
 
     # Le port 3000 est disponible uniquement à l'intérieur du réseau Docker.
     # Il n'est pas directement accessible depuis la machine hôte.
     expose:
-      - "3000"
+      - "${FRONT_PORT}"
 
     # Limitation des ressources attribuées au conteneur.
     deploy:
@@ -43,12 +44,13 @@ services:
     container_name: games-back
 
     environment:
-      FLASK_ENV: production
+      FLASK_ENV: ${FLASK_ENV}
+      BACK_PORT: ${BACK_PORT}
 
     # Le port 5000 sert uniquement aux communications
     # entre le proxy et le backend.
     expose:
-      - "5000"
+      - "${BACK_PORT}"
 
     deploy:
       resources:
@@ -73,7 +75,7 @@ services:
     # Le proxy est le seul service accessible depuis l'extérieur.
     # Le port 8080 de la machine redirige vers le port 80 de Nginx.
     ports:
-      - "8080:80"
+      - "${APP_PORT}:${PROXY_PORT}"
 
     # Le proxy dépend du frontend et du backend.
     # Docker les démarre avant le proxy.
@@ -89,7 +91,6 @@ services:
 
     networks:
       - games-network
-
 
 # Réseau privé permettant aux trois conteneurs de communiquer entre eux en utilisant leur nom de service
 # comme adresse DNS : front, back et proxy.

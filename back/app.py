@@ -1,11 +1,9 @@
-import json
-import signal
-import sys
+import json, signal, sys, os
 
 from flask import Flask, jsonify
 
 app = Flask(__name__)
-
+port = int(os.getenv("BACK_PORT", 5000))
 
 def load_games():
     with open("data/games.json", "r", encoding="utf-8") as file:
@@ -42,4 +40,4 @@ signal.signal(signal.SIGINT, shutdown_handler)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    app.run(host="0.0.0.0", port=port)

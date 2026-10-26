@@ -7,19 +7,104 @@
 
     <title>Détail du jeu</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link
+        rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    >
+
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <header>
-        <a href="/" class="back-link">
-            ← Retour
-        </a>
+    <header class="detail-header">
+        <div class="detail-header-content">
+            <a href="/" class="back-link">
+                <i class="fa-solid fa-arrow-left"></i>
+                Bibliothèque
+            </a>
+        </div>
     </header>
 
-    <main>
-        <div id="game-detail" class="game-detail"></div>
+    <main class="detail-main">
+
+        <section class="game-hero">
+
+            <div class="game-cover-wrapper">
+                <img
+                    id="game-image"
+                    class="game-detail-image"
+                    alt=""
+                >
+            </div>
+
+            <div class="game-information">
+
+                <p class="game-label">FICHE DU JEU</p>
+
+                <h1 id="game-title"></h1>
+
+                <div
+                    id="platform-list"
+                    class="platform-list"
+                ></div>
+
+                <div class="description-section">
+                    <h2>À propos</h2>
+                    <p id="game-description"></p>
+                </div>
+
+                <div
+                    id="store-section"
+                    class="store-section"
+                >
+                    <h2>Disponible sur</h2>
+
+                    <div
+                        id="store-list"
+                        class="store-list"
+                    ></div>
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <section class="reviews-section">
+
+            <div class="section-title">
+                <div>
+                    <p class="section-label">PRESSE</p>
+                    <h2>Notes et critiques</h2>
+                </div>
+
+                <i class="fa-regular fa-star section-icon"></i>
+            </div>
+
+            <div
+                id="reviews-grid"
+                class="reviews-grid"
+            ></div>
+
+            <p
+                id="no-reviews"
+                class="no-data"
+                hidden
+            >
+                Aucune note presse renseignée pour ce jeu.
+            </p>
+
+        </section>
+
     </main>
 
     <script src="game.js"></script>

@@ -1,5 +1,7 @@
 async function loadGames() {
+
     try {
+
         const response = await fetch("/api/games");
 
         if (!response.ok) {
@@ -10,28 +12,82 @@ async function loadGames() {
 
         const gamesContainer = document.getElementById("games");
 
+
         games.forEach(game => {
+
             const card = document.createElement("a");
 
             card.classList.add("game-card");
 
             card.href = `/game.html?id=${game.id}`;
 
-            card.innerHTML = `
-                <img
-                    src="/images/${game.image}"
-                    alt="${game.name}"
-                >
 
-                <h2>${game.name}</h2>
-            `;
+            const imageWrapper = document.createElement("div");
+
+            imageWrapper.classList.add("game-image-wrapper");
+
+
+            const image = document.createElement("img");
+
+            image.src = `/images/${game.image}`;
+
+            image.alt = game.name;
+
+
+            /*
+             * Le GIF est totalement optionnel.
+             */
+            if (game.gif) {
+
+                const staticImage = image.src;
+
+
+                image.addEventListener("mouseenter", () => {
+
+                    image.src = `/images/${game.gif}`;
+                });
+
+
+                image.addEventListener("mouseleave", () => {
+
+                    image.src = staticImage;
+                });
+
+
+                image.addEventListener("error", () => {
+
+                    image.src = staticImage;
+                });
+            }
+
+
+            imageWrapper.appendChild(image);
+
+
+            const title = document.createElement("h2");
+
+            title.textContent = game.name;
+
+
+            card.appendChild(imageWrapper);
+
+            card.appendChild(title);
+
 
             gamesContainer.appendChild(card);
         });
 
     } catch (error) {
+
         console.error(error);
+
+        document.getElementById("games").innerHTML = `
+            <p class="error-message">
+                Impossible de charger la bibliothèque.
+            </p>
+        `;
     }
 }
+
 
 loadGames();

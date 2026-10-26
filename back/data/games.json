@@ -3,24 +3,243 @@
     "id": 1,
     "name": "Final Fantasy VII Remake Intergrade",
     "description": "Vivez l'histoire passionnante de Cloud Strife à Midgar dans cette renaissance de l'emblématique FINAL FANTASY VII à travers des graphismes de pointe, des combats épiques mêlant action et commandes classiques, et un épisode bonus consacré à Yuffie Kisaragi.",
-    "image": "FFVII.png"
+    "image": "FFVII.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Nintendo Switch 2",
+      "Xbox Series X|S"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 89,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/final-fantasy-vii-remake-intergrade/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/1462040/FINAL_FANTASY_VII_REMAKE_INTERGRADE/"
+      }
+    ]
   },
   {
     "id": 2,
     "name": "Rubinite",
-    "description": "Rubinite is an extremely challenging boss rush action game. in a dark fairy tale world, use Ruby's crimson eyes to expose the weak points of the Bloodstained monsters, then strike and shatter them. Carve a road home through the ruined Scarlet Kingdom and face the Witch who took it all.",
-    "image": "Rubinite.jpg"
+    "description": "Rubinite is an extremely challenging boss rush action game. In a dark fairy tale world, use Ruby's crimson eyes to expose the weak points of the Bloodstained monsters, then strike and shatter them. Carve a road home through the ruined Scarlet Kingdom and face the Witch who took it all.",
+    "image": "Rubinite.jpg",
+    "gif": "",
+    "platforms": [
+      "PC"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 80,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/rubinite/"
+      },
+      {
+        "name": "Noisy Pixel",
+        "score": 9,
+        "maxScore": 10,
+        "url": "https://www.metacritic.com/game/rubinite/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/1845250/Rubinite/"
+      }
+    ]
   },
   {
     "id": 3,
     "name": "Monster Hunter Wilds",
     "description": "Arpentez des environnements qui se transforment radicalement d'un moment à l'autre sous l'effet de la force indomptable d'une nature sans cesse déchaînée. Plongez dans une histoire de monstres et d'humains luttant pour vivre en harmonie dans un monde de dualités.",
-    "image": "MHWilds.png"
+    "image": "MHWilds.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 88,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/monster-hunter-wilds/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/2246340/Monster_Hunter_Wilds/"
+      }
+    ]
   },
   {
     "id": 4,
     "name": "Kingdom Hearts Final Mix",
     "description": "KINGDOM HEARTS -HD 1.5+2.5 ReMIX- est une collection remastérisée en HD réunissant six expériences KINGDOM HEARTS inoubliables. Brandissez votre Keyblade pour sauver les mondes Disney des ténèbres.",
-    "image": "Kingdom_hearts.png"
+    "image": "Kingdom_hearts.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 4",
+      "PlayStation 5",
+      "Xbox One",
+      "Xbox Series X|S",
+      "Nintendo Switch",
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 81,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/kingdom-hearts-hd-i5-plus-ii5-remix/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/2552430/KINGDOM_HEARTS_HD_1525_ReMIX/"
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "CONTROL Resonant",
+    "description": "CONTROL Resonant est la suite de CONTROL. Le joueur incarne Dylan Faden dans un Manhattan déformé par des forces paranormales, alors qu'il tente de maîtriser ses pouvoirs et de faire face à une nouvelle menace cosmique.",
+    "image": "Control_resonant.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Xbox Series X|S"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 84,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/3669870/CONTROL_Resonant/"
+      }
+    ]
+  },
+  {
+    "id": 6,
+    "name": "Fire Emblem: Fortune's Weave",
+    "description": "Fire Emblem: Fortune's Weave est un RPG tactique développé par Intelligent Systems et édité par Nintendo. Le jeu met en scène quatre héros dont les destins doivent être modifiés afin de sauver le monde d'une catastrophe imminente.",
+    "image": "fire_emblem.jpg",
+    "gif": "",
+    "platforms": [
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 89,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/fire-emblem-fortunes-weave/"
+      },
+      {
+        "name": "IGN",
+        "score": 10,
+        "maxScore": 10,
+        "url": "https://www.ign.com/"
+      },
+      {
+        "name": "GameSpot",
+        "score": 9,
+        "maxScore": 10,
+        "url": "https://www.gamespot.com/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Nintendo",
+        "type": "nintendo",
+        "url": "https://www.nintendo.com/fr-fr/Jeux/Jeux-Nintendo-Switch-2/Fire-Emblem-Fortune-s-Weave-2915498.html"
+      }
+    ]
+  },
+  {
+    "id": 7,
+    "name": "Trails in the Sky 1st Chapter",
+    "description": "Trails in the Sky 1st Chapter est un remake du premier volet de la série Trails in the Sky. Il suit Estelle Bright et Joshua Bright dans leur voyage à travers le royaume de Liberl, où ils enquêtent sur une série d'événements menaçant la paix du royaume.",
+    "image": "Trails_in_the_sky.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Nintendo Switch",
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 87,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/trails-in-the-sky-1st-chapter/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/3375780/Trails_in_the_Sky_1st_Chapter/"
+      }
+    ]
+  },
+  {
+    "id": 8,
+    "name": "Trails in the Sky 2nd Chapter",
+    "description": "Trails in the Sky 2nd Chapter poursuit directement l'histoire du premier chapitre. Estelle Bright part à la recherche de Joshua tout en affrontant l'organisation Ouroboros et de nouvelles menaces à travers le royaume de Liberl.",
+    "image": "Trails_in_the_sky_2sd_chapter.png",
+    "gif": "",
+    "platforms": [
+      "PC",
+      "PlayStation 5",
+      "Nintendo Switch",
+      "Nintendo Switch 2"
+    ],
+    "reviews": [
+      {
+        "name": "Metacritic",
+        "score": 91,
+        "maxScore": 100,
+        "url": "https://www.metacritic.com/game/trails-in-the-sky-2nd-chapter/"
+      },
+      {
+        "name": "RPG Site",
+        "score": 10,
+        "maxScore": 10,
+        "url": "https://www.rpgsite.net/"
+      }
+    ],
+    "stores": [
+      {
+        "name": "Steam",
+        "type": "steam",
+        "url": "https://store.steampowered.com/app/4225980/Trails_in_the_Sky_2nd_Chapter/"
+      }
+    ]
   }
 ]
